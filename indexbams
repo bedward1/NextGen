@@ -1,0 +1,27 @@
+#!/bin/bash
+
+start=`date +%s` 
+# take bam files from archive and sort
+
+files=/Volumes/archive/cisa/LifeScope_Analysis2013/S101T1_str168.bam
+
+# loop through files (if through a directory)
+for a in $files
+do
+
+boutput={$a\.sorted.sam}
+
+# working aug 26,2013
+./samtools sort -@ 50 -m 20G $a  sorted
+#working aug 26,2013
+
+# create sam from sorted bam. Need to append filename approapriately
+./samtools view -h sorted.bam > out.sam
+
+done
+end=`date +%s`
+echo runtime=$((end-start))
+
+
+
+
