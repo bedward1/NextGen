@@ -3,21 +3,30 @@
 start=`date +%s` 
 # take bam files from archive and sort
 
-files=/Volumes/archive/cisa/LifeScope_Analysis2013/S101T1_str168.bam
+files=/Volumes/archive/cisa/LifeScope_Analysis2013/BL_Henrybam/*
 
 # loop through files (if through a directory)
 for a in $files
 do
 
-boutput={$a\.sorted.sam}
+subpath=$(echo "$a" | cut -c 58-63) 
 
+echo $subpath
 # working aug 26,2013
-./samtools sort -@ 50 -m 20G $a  sorted
+# add sort by name (-n)
+./samtools sort -n -@ 50 -m 10G $a  sorted
 #working aug 26,2013
 
 # create sam from sorted bam. Need to append filename approapriately
-./samtools view -h sorted.bam > out.sam
+touch $subpath.bl.sam
+./samtools view -h sorted.bam > $subpath.bl.sam 
 
+# add rollup with htseq#################
+
+# only worked with GTF file, not GFF file. Although all refs say to use GFF. Not sure what differences were.
+# in HTSeq folder
+# have moved the gtf file
+htseq-count ~/Documents/UnixCodes/samtools-0.1.19/S101T1.bl.sam ~/Desktop/Bacillus_subtilis_str_168_June_26_2013.gtf > counts.out
 done
 end=`date +%s`
 echo runtime=$((end-start))
