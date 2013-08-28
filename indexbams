@@ -26,7 +26,7 @@ touch $subpath.bl.sam
 # only worked with GTF file, not GFF file. Although all refs say to use GFF. Not sure what differences were.
 # in HTSeq folder
 # have moved the gtf file
-htseq-count ~/Documents/UnixCodes/samtools-0.1.19/S101T1.bl.sam ~/Desktop/Bacillus_subtilis_str_168_June_26_2013.gtf > counts.out
+htseq-count ~/Documents/UnixCodes/samtools-0.1.19/S101T1.bl.sam ~/Documents/UnixCodes/HTSeq-0.5.4p3/Bacillus_subtilis_str_168_June_26_2013.gtf > counts.out
 done
 end=`date +%s`
 echo runtime=$((end-start))
